@@ -1,11 +1,13 @@
 package com.example.oops_project_api.Services;
 
+import com.example.oops_project_api.Exception.Productnotfound;
 import com.example.oops_project_api.Models.Category;
 import com.example.oops_project_api.Models.Product;
 import com.example.oops_project_api.dtos.FakeStoreProductdtos;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import javax.management.RuntimeErrorException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +15,13 @@ import java.util.List;
 public class FakeStoreProductService implements  ProductService{
     @Override
     public Product getProductById(Long id) {
+
         RestTemplate restTemplate = new RestTemplate();
         FakeStoreProductdtos fakeStoreProductdtos =
                 restTemplate.getForObject("https://fakestoreapi.com/products/" + id, FakeStoreProductdtos.class);
 
         if (fakeStoreProductdtos == null) {
-            return null;
+            throw new Productnotfound(id, "Pass a valid product ID");
         }
         return convertfakestore(fakeStoreProductdtos);
     }
