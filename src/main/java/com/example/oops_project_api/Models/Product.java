@@ -1,8 +1,6 @@
 package com.example.oops_project_api.Models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +10,7 @@ import lombok.Setter;
 @Entity
 //@AllArgsConstructor
 public class Product {
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @jakarta.persistence.Id
     private Long Id;
     private String title;
